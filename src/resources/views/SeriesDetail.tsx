@@ -6,6 +6,9 @@ import { useWatchlist } from '../../utils/useWatchlist';
 import { useState, useEffect } from 'react';
 
 const SERVERS = [
+  { name: 'AutoEmbed', url: (tmdb: string | number, s: number, e: number) => `https://autoembed.co/tv/tmdb/${tmdb}-${s}-${e}` },
+  { name: 'VidLink (HD)', url: (tmdb: string | number, s: number, e: number) => `https://vidlink.pro/tv/${tmdb}/${s}/${e}` },
+  { name: 'SmashyStream', url: (tmdb: string | number, s: number, e: number) => `https://player.smashy.stream/tv?tmdb=${tmdb}&season=${s}&episode=${e}` },
   { name: 'VidSrc', url: (tmdb: string | number, s: number, e: number) => `https://vidsrc.to/embed/tv/${tmdb}/${s}/${e}?ds_lang=en` },
   { name: 'VidSrc ME', url: (tmdb: string | number, s: number, e: number) => `https://vidsrc.me/embed/tv?tmdb=${tmdb}&season=${s}&episode=${e}&ds_lang=en` },
   { name: 'VidSrc RU', url: (tmdb: string | number, s: number, e: number) => `https://vidsrc-embed.ru/embed/tv?tmdb=${tmdb}&season=${s}&episode=${e}&ds_lang=en` },
