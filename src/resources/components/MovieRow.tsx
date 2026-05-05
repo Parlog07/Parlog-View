@@ -8,13 +8,14 @@ import { motion } from 'framer-motion';
 interface MovieRowProps {
   title: string;
   endpoint: string;
+  mediaType?: 'movie' | 'tv';
 }
 
-const MovieRow = ({ title, endpoint }: MovieRowProps) => {
+const MovieRow = ({ title, endpoint, mediaType = 'movie' }: MovieRowProps) => {
   const rowRef = useRef<HTMLDivElement>(null);
   
   const { data: movies, isLoading } = useQuery({
-    queryKey: ['movies', endpoint],
+    queryKey: ['media', endpoint],
     queryFn: () => getMoviesByCategory(endpoint),
   });
 
@@ -57,7 +58,7 @@ const MovieRow = ({ title, endpoint }: MovieRowProps) => {
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {movies?.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
+            <MovieCard key={movie.id} movie={movie} mediaType={mediaType} />
           ))}
         </div>
 
@@ -72,35 +73,37 @@ const MovieRow = ({ title, endpoint }: MovieRowProps) => {
   );
 };
 
-const MovieCard = ({ movie }: { movie: Movie }) => {
+const MovieCard = ({ movie, mediaType }: { movie: Movie, mediaType: 'movie' | 'tv' }) => {
+  const displayTitle = movie.title || movie.name;
+  
   return (
     <motion.div 
       className="relative min-w-[200px] h-[300px] rounded-xl overflow-hidden cursor-pointer group flex-shrink-0 block"
       whileHover={{ scale: 1.05 }}
       transition={{ duration: 0.2 }}
     >
-      <Link to={`/movie/${movie.id}`} className="absolute inset-0 z-10" />
+      <Link to={`/${mediaType === 'tv' ? 'series' : 'movie'}/${movie.id}`} className="absolute inset-0 z-10" />
       <img 
         src={getImageUrl(movie.poster_path, 'w500')} 
-        alt={movie.title}
+        alt={displayTitle}
         className="w-full h-full object-cover transition-all duration-300 group-hover:opacity-50"
       />
       <div className="absolute inset-0 border border-white/10 rounded-xl group-hover:border-primary/50 transition-colors shadow-[0_0_0_rgba(139,92,246,0)] group-hover:shadow-[0_0_20px_rgba(139,92,246,0.3)]"></div>
       
       <div className="absolute inset-0 flex flex-col justify-end p-4 opacity-0 group-hover:opacity-100 transition-opacity bg-gradient-to-t from-black/90 via-black/40 to-transparent">
-        <h3 className="text-white font-bold text-sm mb-2">{movie.title}</h3>
+        <h3 className="text-white font-bold text-sm mb-2">{displayTitle}</h3>
         <div className="flex items-center gap-2 mb-2 text-xs text-green-400 font-semibold">
-          <span>{movie.vote_average.toFixed(1)} Rating</span>
+          <span>{movie.vote_average?.toFixed(1) || '0.0'} Rating</span>
           <span className="text-gray-300 border border-gray-600 px-1 rounded">HD</span>
         </div>
         <div className="flex gap-2">
-          <button className="w-8 h-8 bg-white text-black rounded-full flex items-center justify-center hover:bg-gray-200">
+          <button className="w-8 h-8 bg-white text-black rounded-full flex items-center justify-center hover:bg-gray-200 z-20">
             <Play fill="currentColor" size={12} />
           </button>
-          <button className="w-8 h-8 border border-gray-400 text-white rounded-full flex items-center justify-center hover:border-white">
+          <button className="w-8 h-8 border border-gray-400 text-white rounded-full flex items-center justify-center hover:border-white z-20">
             <Plus size={16} />
           </button>
-          <button className="w-8 h-8 border border-gray-400 text-white rounded-full flex items-center justify-center hover:border-white ml-auto">
+          <button className="w-8 h-8 border border-gray-400 text-white rounded-full flex items-center justify-center hover:border-white ml-auto z-20">
             <ThumbsUp size={14} />
           </button>
         </div>

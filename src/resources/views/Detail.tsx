@@ -1,13 +1,21 @@
 import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { Play, Plus, Check, Share2, Star } from 'lucide-react';
+import { Play, Plus, Check, Share2, Star, Download } from 'lucide-react';
 import { getMovieDetails, getImageUrl } from '../../services/tmdb';
 import { useWatchlist } from '../../utils/useWatchlist';
 import { useState } from 'react';
 
+const SERVERS = [
+  { name: 'VidSrc', url: (id: string | number) => `https://vidsrc.to/embed/movie/${id}?ds_lang=en` },
+  { name: 'VidSrc ME', url: (id: string | number) => `https://vidsrc.me/embed/movie?tmdb=${id}&ds_lang=en` },
+  { name: 'VidSrc RU', url: (id: string | number) => `https://vidsrc-embed.ru/embed/movie?tmdb=${id}&ds_lang=en` },
+  { name: '2Embed', url: (id: string | number) => `https://www.2embed.cc/embed/${id}` }
+];
+
 const Detail = () => {
   const { id } = useParams<{ id: string }>();
   const [isPlaying, setIsPlaying] = useState(false);
+  const [activeServer, setActiveServer] = useState(SERVERS[0]);
   const [userRating, setUserRating] = useState(0);
   const { addToWatchlist, removeFromWatchlist, isInWatchlist } = useWatchlist();
 
@@ -81,22 +89,56 @@ const Detail = () => {
             </div>
           </>
         ) : (
-          <div className="w-full h-full bg-black relative flex flex-col justify-center items-center">
-            {/* Custom Video Player Placeholder */}
-            <video 
-              controls
-              className="w-full h-full object-contain"
-              poster={getImageUrl(movie.backdrop_path, 'original')}
-            >
-              <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
-              Your browser does not support HTML5 video.
-            </video>
-            <button 
-              onClick={() => setIsPlaying(false)}
-              className="absolute top-24 left-8 bg-black/50 hover:bg-black/80 text-white px-4 py-2 rounded-full backdrop-blur-md"
-            >
-              Close Player
-            </button>
+          <div className="w-full h-full flex flex-col bg-black">
+            <div className="w-full flex-grow relative">
+              <iframe 
+                src={activeServer.url(movie.id)}
+                className="w-full h-full border-none absolute inset-0"
+                allowFullScreen
+                referrerPolicy="origin"
+                allow="autoplay; fullscreen"
+                title={movie.title}
+              ></iframe>
+            </div>
+            
+            {/* Player Controls Bar */}
+            <div className="w-full bg-background p-4 flex flex-wrap items-center justify-between gap-4 border-t border-white/10">
+              <div className="flex items-center gap-4">
+                <button 
+                  onClick={() => setIsPlaying(false)}
+                  className="bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white px-4 py-2 rounded-full transition-colors flex items-center gap-2 font-semibold text-sm"
+                >
+                  Close Player
+                </button>
+                <button 
+                  onClick={() => window.open(`https://www.google.com/search?q=${encodeURIComponent(movie.title + " " + new Date(movie.release_date).getFullYear() + " download")}`, '_blank')}
+                  className="bg-white/5 hover:bg-white/10 text-white px-4 py-2 rounded-full transition-colors flex items-center gap-2 font-semibold text-sm"
+                  title="Search for download"
+                >
+                  <Download size={16} />
+                  <span className="hidden sm:inline">Download</span>
+                </button>
+              </div>
+              
+              <div className="flex items-center gap-4 overflow-x-auto pb-2 sm:pb-0">
+                <span className="text-gray-400 text-sm font-medium whitespace-nowrap">Servers:</span>
+                <div className="flex bg-black/50 rounded-full p-1 border border-white/10">
+                  {SERVERS.map((server) => (
+                    <button
+                      key={server.name}
+                      onClick={() => setActiveServer(server)}
+                      className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-all whitespace-nowrap ${
+                        activeServer.name === server.name 
+                          ? 'bg-primary text-white shadow-lg' 
+                          : 'text-gray-400 hover:text-white hover:bg-white/10'
+                      }`}
+                    >
+                      {server.name}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </div>

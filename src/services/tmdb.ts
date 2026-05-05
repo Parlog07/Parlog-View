@@ -40,15 +40,18 @@ const tmdbApi = axios.create({
 
 export interface Movie {
   id: number;
-  title: string;
+  title?: string;
+  name?: string; // For TV Shows
   overview: string;
   poster_path: string | null;
   backdrop_path: string | null;
   vote_average: number;
-  release_date: string;
+  release_date?: string;
+  first_air_date?: string; // For TV Shows
   genre_ids: number[];
   runtime?: number;
   genres?: { id: number; name: string }[];
+  seasons?: { season_number: number; episode_count: number; name: string; overview: string }[]; // For TV Shows
 }
 
 export interface PaginatedResponse<T> {
@@ -80,6 +83,18 @@ export const getMovieDetails = async (id: string): Promise<any> => {
   const { data } = await tmdbApi.get<any>(`/movie/${id}`, {
     params: { append_to_response: 'credits,similar' }
   });
+  return data;
+};
+
+export const getTvShowDetails = async (id: string): Promise<any> => {
+  const { data } = await tmdbApi.get<any>(`/tv/${id}`, {
+    params: { append_to_response: 'credits,similar' }
+  });
+  return data;
+};
+
+export const getSeasonEpisodes = async (tvId: string, seasonNumber: number): Promise<any> => {
+  const { data } = await tmdbApi.get<any>(`/tv/${tvId}/season/${seasonNumber}`);
   return data;
 };
 
