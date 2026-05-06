@@ -1,54 +1,19 @@
-# PARLOG VIEW - Premium Movie Streaming
+# Parlog View 🍿
 
-A complete, production-ready movie streaming website featuring a premium dark interface with purple accents, inspired by Netflix, EgyBest, and FlixMomo. 
+Parlog View is a premium, beautifully designed movie and TV show streaming interface. Designed with a sleek, dark, glassmorphic aesthetic inspired by modern streaming giants, it provides users with an immersive and seamless entertainment experience.
 
-Built with **React 18**, **TypeScript**, **Tailwind CSS**, and the **TMDB API**.
+## ✨ Features
 
-## Features
-- **Premium Dark Design**: Deep black `#0a0a0a` background with `#8B5CF6` purple accents.
-- **Dynamic Content**: Fetches real movies from the TMDB API using `TanStack Query` for caching.
-- **Search & Filtering**: Real-time debounced search.
-- **My List**: LocalStorage-based watchlist functionality.
-- **Detailed Pages**: Full backdrop images, custom video player skeleton, and similar movie suggestions.
-- **Responsive**: Fully responsive design for mobile, tablet, and desktop.
+* **Complete Streaming Library:** Browse trending movies, top-rated TV series, and discover new content across various genres (Action, Comedy, Horror, Sci-Fi, etc.).
+* **Advanced TV Show Support:** Full support for TV series, including a clean Season and Episode selector so you can always pick up exactly where you left off.
+* **Multiple High-Quality Servers:** Why rely on one server? Parlog View gives you the power of choice. Switch instantly between premium, reliable embedded streaming servers (including AutoEmbed, VidLink HD, SmashyStream, and VidSrc). 
+* **Native Subtitles & Quality Control:** Our robust primary streaming servers feature native player controls, allowing you to manually select your preferred resolution (1080p, 720p) and choose from dozens of closed caption subtitle languages.
+* **Personal Watchlist:** Save your favorite movies and shows to "My List" with a single click, keeping your personal library organized in a beautiful grid view.
+* **Intelligent Search:** A lightning-fast search engine that finds exactly what you're looking for instantly.
+* **Smart Downloads:** A convenient download shortcut that intelligently searches the web for direct downloads of the movie or show you are currently viewing.
 
-## Free TMDB API Setup Instructions
-To get real data flowing into the app, you need a free TMDB API Key.
+## 🎨 Design Philosophy
+The application was built with a strict focus on "Premium Dark" aesthetics. It avoids generic colors in favor of deep backgrounds, subtle gradients, and smooth micro-animations. The interface feels responsive, alive, and thoroughly modern.
 
-1. Go to [The Movie Database (TMDB)](https://www.themoviedb.org/) and create a free account.
-2. Navigate to **Settings** -> **API** from the left sidebar.
-3. Click on **Create** or **Request an API Key** (choose Developer).
-4. Fill out the form, and you will instantly receive your `v3 auth` API Key.
-5. Create a `.env` file in the root of this project and add:
-   ```env
-   VITE_TMDB_API_KEY=your_api_key_here
-   ```
-6. Restart the Vite development server.
-
-## Installation & Running Locally
-
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-2. Start the development server:
-   ```bash
-   npm run dev
-   ```
-
-3. Open `http://localhost:5173` in your browser.
-
-## Tech Stack & Architecture
-- **React 18** with **TypeScript**
-- **Vite** for fast building
-- **Tailwind CSS** for styling and animations
-- **Framer Motion** for UI micro-animations
-- **React Query** for server state management
-- **React Router v6** for navigation
-- **Laravel-inspired Structure**: `src/app`, `src/config`, `src/resources`, `src/routes`, `src/services`, `src/utils`
-
-## Performance & Rate Limiting
-- **Caching**: API responses are cached via TanStack Query to reduce network requests.
-- **Debouncing**: Search inputs are debounced by 500ms to avoid hitting TMDB's 50 requests/sec limit.
-- **Lazy Loading**: Images use optimized loading (if expanded with `framer-motion`).
+---
+*Built to bring the cinematic experience directly to your browser.*
