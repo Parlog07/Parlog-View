@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Play, Plus, ThumbsUp, Trash2 } from 'lucide-react';
+import { Play, Trash2 } from 'lucide-react';
 import { useWatchlist } from '../../utils/useWatchlist';
 import { getImageUrl } from '../../services/tmdb';
 
