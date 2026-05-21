@@ -6,13 +6,12 @@ import { useWatchlist } from '../../utils/useWatchlist';
 import { useState } from 'react';
 
 const SERVERS = [
-  { name: 'AutoEmbed', url: (id: string | number) => `https://autoembed.co/movie/tmdb/${id}` },
-  { name: 'VidLink (HD)', url: (id: string | number) => `https://vidlink.pro/movie/${id}` },
-  { name: 'SmashyStream', url: (id: string | number) => `https://player.smashy.stream/movie?tmdb=${id}` },
-  { name: 'VidSrc', url: (id: string | number) => `https://vidsrc.to/embed/movie/${id}?ds_lang=en` },
-  { name: 'VidSrc ME', url: (id: string | number) => `https://vidsrc.me/embed/movie?tmdb=${id}&ds_lang=en` },
-  { name: 'VidSrc RU', url: (id: string | number) => `https://vidsrc-embed.ru/embed/movie?tmdb=${id}&ds_lang=en` },
-  { name: '2Embed', url: (id: string | number) => `https://www.2embed.cc/embed/${id}` }
+  { name: 'Embed.su (HD)', url: (id: string | number) => `https://embed.su/embed/movie/${id}` },
+  { name: 'VidLink', url: (id: string | number) => `https://vidlink.pro/movie/${id}` },
+  { name: 'VidSrc PRO', url: (id: string | number) => `https://vidsrc.pro/embed/movie/${id}` },
+  { name: 'VidSrc ME', url: (id: string | number) => `https://vidsrc.me/embed/movie?tmdb=${id}` },
+  { name: 'SuperEmbed', url: (id: string | number) => `https://multiembed.mov/?video_id=${id}&tmdb=1` },
+  { name: 'AutoEmbed', url: (id: string | number) => `https://player.autoembed.cc/embed/movie/${id}` }
 ];
 
 const Detail = () => {
@@ -97,9 +96,9 @@ const Detail = () => {
               <iframe 
                 src={activeServer.url(movie.id)}
                 className="w-full h-full border-none absolute inset-0"
-                allowFullScreen
+                allowFullScreen={true}
                 referrerPolicy="origin"
-                allow="autoplay; fullscreen"
+                allow="autoplay; fullscreen; encrypted-media"
                 title={movie.title}
               ></iframe>
             </div>
@@ -113,14 +112,7 @@ const Detail = () => {
                 >
                   Close Player
                 </button>
-                <button 
-                  onClick={() => window.open(`https://www.google.com/search?q=${encodeURIComponent(movie.title + " " + new Date(movie.release_date).getFullYear() + " download")}`, '_blank')}
-                  className="bg-white/5 hover:bg-white/10 text-white px-4 py-2 rounded-full transition-colors flex items-center gap-2 font-semibold text-sm"
-                  title="Search for download"
-                >
-                  <Download size={16} />
-                  <span className="hidden sm:inline">Download</span>
-                </button>
+
               </div>
               
               <div className="flex items-center gap-4 overflow-x-auto pb-2 sm:pb-0">

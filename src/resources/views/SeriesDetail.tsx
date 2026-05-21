@@ -6,19 +6,18 @@ import { useWatchlist } from '../../utils/useWatchlist';
 import { useState, useEffect } from 'react';
 
 const SERVERS = [
-  { name: 'AutoEmbed', url: (tmdb: string | number, s: number, e: number) => `https://autoembed.co/tv/tmdb/${tmdb}-${s}-${e}` },
-  { name: 'VidLink (HD)', url: (tmdb: string | number, s: number, e: number) => `https://vidlink.pro/tv/${tmdb}/${s}/${e}` },
-  { name: 'SmashyStream', url: (tmdb: string | number, s: number, e: number) => `https://player.smashy.stream/tv?tmdb=${tmdb}&season=${s}&episode=${e}` },
-  { name: 'VidSrc', url: (tmdb: string | number, s: number, e: number) => `https://vidsrc.to/embed/tv/${tmdb}/${s}/${e}?ds_lang=en` },
-  { name: 'VidSrc ME', url: (tmdb: string | number, s: number, e: number) => `https://vidsrc.me/embed/tv?tmdb=${tmdb}&season=${s}&episode=${e}&ds_lang=en` },
-  { name: 'VidSrc RU', url: (tmdb: string | number, s: number, e: number) => `https://vidsrc-embed.ru/embed/tv?tmdb=${tmdb}&season=${s}&episode=${e}&ds_lang=en` },
-  { name: '2Embed', url: (tmdb: string | number, s: number, e: number) => `https://www.2embed.cc/embedtv/${tmdb}&s=${s}&e=${e}` }
+  { name: 'Embed.su (HD)', url: (tmdb: string | number, s: number, e: number) => `https://embed.su/embed/tv/${tmdb}/${s}/${e}` },
+  { name: 'VidLink', url: (tmdb: string | number, s: number, e: number) => `https://vidlink.pro/tv/${tmdb}/${s}/${e}` },
+  { name: 'VidSrc PRO', url: (tmdb: string | number, s: number, e: number) => `https://vidsrc.pro/embed/tv/${tmdb}/${s}/${e}` },
+  { name: 'VidSrc ME', url: (tmdb: string | number, s: number, e: number) => `https://vidsrc.me/embed/tv?tmdb=${tmdb}&season=${s}&episode=${e}` },
+  { name: 'SuperEmbed', url: (tmdb: string | number, s: number, e: number) => `https://multiembed.mov/?video_id=${tmdb}&tmdb=1&s=${s}&e=${e}` },
+  { name: 'AutoEmbed', url: (tmdb: string | number, s: number, e: number) => `https://player.autoembed.cc/embed/tv/${tmdb}/${s}/${e}` }
 ];
 
 const SeriesDetail = () => {
   const { id } = useParams<{ id: string }>();
   const [isPlaying, setIsPlaying] = useState(false);
-  const [activeServer, setActiveServer] = useState(SERVERS.find(s => s.name === 'VidLink (HD)') || SERVERS[0]);
+  const [activeServer, setActiveServer] = useState(SERVERS[0]);
   
   const [selectedSeason, setSelectedSeason] = useState(1);
   const [selectedEpisode, setSelectedEpisode] = useState(1);
@@ -118,9 +117,9 @@ const SeriesDetail = () => {
               <iframe 
                 src={activeServer.url(show.id, selectedSeason, selectedEpisode)}
                 className="w-full h-full border-none absolute inset-0"
-                allowFullScreen
+                allowFullScreen={true}
                 referrerPolicy="origin"
-                allow="autoplay; fullscreen"
+                allow="autoplay; fullscreen; encrypted-media"
                 title={`${show.name} - S${selectedSeason} E${selectedEpisode}`}
               ></iframe>
             </div>
