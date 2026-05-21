@@ -119,7 +119,6 @@ const SeriesDetail = () => {
                 className="w-full h-full border-none absolute inset-0"
                 allowFullScreen
                 allow="fullscreen; autoplay; encrypted-media"
-                sandbox="allow-scripts allow-same-origin allow-forms allow-presentation allow-pointer-lock allow-top-navigation-by-user-activation"
                 referrerPolicy="origin"
                 title={`${show.name} - S${selectedSeason} E${selectedEpisode}`}
               ></iframe>
