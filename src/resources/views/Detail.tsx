@@ -98,8 +98,9 @@ const Detail = () => {
                 className="w-full h-full border-none absolute inset-0"
                 allowFullScreen={true}
                 referrerPolicy="origin"
-                allow="autoplay; fullscreen; encrypted-media"
+                allow="autoplay; fullscreen; encrypted-media; picture-in-picture; display-capture"
                 title={movie.title}
+                {...{ webkitallowfullscreen: "true", mozallowfullscreen: "true", oallowfullscreen: "true", msallowfullscreen: "true" }}
               ></iframe>
             </div>
             
