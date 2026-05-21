@@ -6,8 +6,8 @@ import { useWatchlist } from '../../utils/useWatchlist';
 import { useState } from 'react';
 
 const SERVERS = [
-  { name: 'Embed.su (HD)', url: (id: string | number) => `https://embed.su/embed/movie/${id}` },
   { name: 'VidLink', url: (id: string | number) => `https://vidlink.pro/movie/${id}` },
+  { name: 'Embed.su (HD)', url: (id: string | number) => `https://embed.su/embed/movie/${id}` },
   { name: 'VidSrc PRO', url: (id: string | number) => `https://vidsrc.pro/embed/movie/${id}` },
   { name: 'VidSrc ME', url: (id: string | number) => `https://vidsrc.me/embed/movie?tmdb=${id}` },
   { name: 'SuperEmbed', url: (id: string | number) => `https://multiembed.mov/?video_id=${id}&tmdb=1` },
@@ -96,11 +96,11 @@ const Detail = () => {
               <iframe 
                 src={activeServer.url(movie.id)}
                 className="w-full h-full border-none absolute inset-0"
-                allowFullScreen={true}
+                allowFullScreen
+                allow="fullscreen; autoplay; encrypted-media"
+                sandbox="allow-scripts allow-same-origin allow-forms allow-presentation allow-pointer-lock allow-top-navigation-by-user-activation"
                 referrerPolicy="origin"
-                allow="autoplay; fullscreen; encrypted-media; picture-in-picture; display-capture"
                 title={movie.title}
-                {...{ webkitallowfullscreen: "true", mozallowfullscreen: "true", oallowfullscreen: "true", msallowfullscreen: "true" }}
               ></iframe>
             </div>
             

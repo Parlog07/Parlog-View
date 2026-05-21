@@ -6,8 +6,8 @@ import { useWatchlist } from '../../utils/useWatchlist';
 import { useState, useEffect } from 'react';
 
 const SERVERS = [
-  { name: 'Embed.su (HD)', url: (tmdb: string | number, s: number, e: number) => `https://embed.su/embed/tv/${tmdb}/${s}/${e}` },
   { name: 'VidLink', url: (tmdb: string | number, s: number, e: number) => `https://vidlink.pro/tv/${tmdb}/${s}/${e}` },
+  { name: 'Embed.su (HD)', url: (tmdb: string | number, s: number, e: number) => `https://embed.su/embed/tv/${tmdb}/${s}/${e}` },
   { name: 'VidSrc PRO', url: (tmdb: string | number, s: number, e: number) => `https://vidsrc.pro/embed/tv/${tmdb}/${s}/${e}` },
   { name: 'VidSrc ME', url: (tmdb: string | number, s: number, e: number) => `https://vidsrc.me/embed/tv?tmdb=${tmdb}&season=${s}&episode=${e}` },
   { name: 'SuperEmbed', url: (tmdb: string | number, s: number, e: number) => `https://multiembed.mov/?video_id=${tmdb}&tmdb=1&s=${s}&e=${e}` },
@@ -117,11 +117,11 @@ const SeriesDetail = () => {
               <iframe 
                 src={activeServer.url(show.id, selectedSeason, selectedEpisode)}
                 className="w-full h-full border-none absolute inset-0"
-                allowFullScreen={true}
+                allowFullScreen
+                allow="fullscreen; autoplay; encrypted-media"
+                sandbox="allow-scripts allow-same-origin allow-forms allow-presentation allow-pointer-lock allow-top-navigation-by-user-activation"
                 referrerPolicy="origin"
-                allow="autoplay; fullscreen; encrypted-media; picture-in-picture; display-capture"
                 title={`${show.name} - S${selectedSeason} E${selectedEpisode}`}
-                {...{ webkitallowfullscreen: "true", mozallowfullscreen: "true", oallowfullscreen: "true", msallowfullscreen: "true" }}
               ></iframe>
             </div>
             
