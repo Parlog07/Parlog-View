@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { Play, Plus, Check, Share2, Star, Download } from 'lucide-react';
+import { Play, Plus, Check, Share2, Star } from 'lucide-react';
 import { getMovieDetails, getImageUrl } from '../../services/tmdb';
 import { useWatchlist } from '../../utils/useWatchlist';
 import { useState } from 'react';

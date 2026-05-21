@@ -51,8 +51,8 @@ const Navbar = () => {
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
         
-        <Link to="/" className="text-2xl font-bold tracking-tighter text-white flex items-center gap-1 text-shadow-md">
-          PARLOG<span className="text-primary">VIEW</span>
+        <Link to="/" className="text-2xl font-black tracking-tighter text-white flex items-center gap-1 drop-shadow-lg">
+          PARLOG<span className="text-primary bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">VIEW</span>
         </Link>
         <div className="hidden md:flex items-center gap-4 text-sm font-medium text-gray-300">
           {navLinks.map(link => (
@@ -70,8 +70,8 @@ const Navbar = () => {
         <button className="hover:text-primary transition-colors hidden sm:block">
           <Bell size={20} />
         </button>
-        <button className="w-8 h-8 rounded-md bg-gradient-to-tr from-primary to-accent flex items-center justify-center cursor-pointer hover:scale-105 transition-transform shadow-[0_0_15px_rgba(139,92,246,0.5)]">
-          <User size={16} />
+        <button className="w-9 h-9 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center cursor-pointer hover:scale-110 transition-transform shadow-[0_0_20px_rgba(139,92,246,0.6)] border border-white/20">
+          <User size={18} className="text-white" />
         </button>
       </div>
 

@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { Play, Info } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { getTrendingMovies, getMoviesByCategory, getImageUrl } from '../../services/tmdb';
 
@@ -39,29 +40,44 @@ const Hero = ({ mediaType = 'movie' }: HeroProps = {}) => {
         <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
       </div>
 
-      <div className="absolute top-1/4 left-4 md:left-12 max-w-2xl px-4">
-        <h1 className="text-4xl md:text-6xl font-bold mb-4 text-shadow-md">
+      <div className="absolute top-1/4 left-4 md:left-16 max-w-2xl px-4">
+        <motion.h1 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-5xl md:text-7xl font-black mb-4 tracking-tight drop-shadow-2xl"
+        >
           {displayTitle}
-        </h1>
-        <p className="text-gray-300 text-lg md:text-xl line-clamp-3 mb-8 text-shadow-md max-w-xl">
+        </motion.h1>
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="text-gray-300 text-lg md:text-xl line-clamp-3 mb-8 drop-shadow-lg max-w-xl font-medium leading-relaxed"
+        >
           {media.overview}
-        </p>
-        <div className="flex items-center gap-4">
+        </motion.p>
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="flex items-center gap-4"
+        >
           <button 
             onClick={() => navigate(link)}
-            className="flex items-center gap-2 px-6 py-3 bg-white text-black font-semibold rounded-full hover:bg-gray-200 transition-colors"
+            className="flex items-center gap-2 px-8 py-3.5 bg-white text-black font-bold rounded-full hover:scale-105 hover:bg-gray-200 transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.3)]"
           >
             <Play fill="currentColor" size={20} />
-            Play
+            Watch Now
           </button>
           <Link 
             to={link}
-            className="flex items-center gap-2 px-6 py-3 bg-gray-500/50 hover:bg-gray-500/70 text-white font-semibold rounded-full transition-colors backdrop-blur-sm"
+            className="flex items-center gap-2 px-8 py-3.5 bg-black/40 hover:bg-black/60 text-white font-bold rounded-full transition-all duration-300 backdrop-blur-md border border-white/20 hover:border-white/40"
           >
             <Info size={20} />
             More Info
           </Link>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
